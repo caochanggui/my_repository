@@ -1,1 +1,0 @@
-UnicodeDecodeError: 'utf-8' codec can't decode byte 0xb5 in position 0: invalid start byte

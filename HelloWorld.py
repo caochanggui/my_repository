@@ -1844,7 +1844,153 @@ s = """
 # N = 50
 # dp = [[0]*(m+1) for _ in range(N+1)]
 # print(dp)
-from collections import defaultdict
-classdic = defaultdict(int)
-print(classdic)
-print(classdic[100])
+# from collections import defaultdict
+# classdic = defaultdict(int)
+# print(classdic)
+# print(classdic[100])
+
+ym = '255.254.255.0'
+# ym1 = list(map(int, ym.split('.')))
+# ym2 = ym.split('.')
+# ym2 = ''.join(['{:08b}'.format(i) for i in ym1])
+# print(ym2)
+# if ym2.find('0') == -1 or ym2.find('1') == -1 or ym2.find('0') != ym2.rfind('1') + 1:
+#     print(False)
+# ip1 = '10.70.44.68'
+# ip1 = list(map(int, ip1.split('.')))
+# print(ip1)
+# if ip1[0] == 10 or (ip1[0] == 172 and 16 <= ip1[1] <= 31) or (ip1[0] == 192 and ip1[0] == 168):
+#     print(True)
+# import sys
+# content = [3,10,81,0]
+# for line in content:
+#     # a = line.split('\n')
+#
+#     # print(int(a[0]) + int(a[1]))
+#     n = int(line)
+#     count = 0
+#     if n !=0:
+#         while int(n/3) >0 :
+#             count += int(n/3)
+#             n = int(n/3)+int(n%3)
+#             if n+1==3:
+#                 count+=1
+#
+#         print(count)
+
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+# class Solution:
+#     def bulid_tree(self, preorder, inorder) -> TreeNode:
+#         if not preorder or not inorder:
+#             return None
+#         if len(preorder) != len(inorder):
+#             return None
+#         root = preorder[0]
+#         rootNode = TreeNode(root)
+#         pos = inorder.index(root)
+#         inorder_left = inorder[:pos]
+#         inorder_right = inorder[pos+1:]
+#         preorder_left = preorder[1:pos+1]
+#         preorder_right = preorder[pos+1:]
+#         node_left = self.bulid_tree(preorder_left, inorder_left)
+#         node_right = self.bulid_tree(preorder_right, inorder_right)
+#         rootNode.left = node_left
+#         rootNode.right = node_right
+#         return rootNode
+# tree = Solution().bulid_tree
+# res = tree(preorder = [3,9,20,15,7], inorder = [9,3,15,20,7])
+# print(res)
+# numbers = [3,4,5,1,2]
+# a = numbers[2:]
+# b = numbers[:2]
+# new = []
+# [new.append(_) for _ in a]
+# new.extend(b)
+# print(new)
+# from collections import deque
+# class Solution:
+#     def maxTaskAssign(self, tasks, workers, pills: int, strength: int) -> int:
+#         tasks.sort()
+#         workers.sort()
+#         s = 0
+#         e = min(len(tasks), len(workers)) + 1
+#         while s + 1 < e:
+#             m = (s + e) // 2
+#             # print("try", m)
+#             # Match workers[-m:] to tasks[:m]
+#             i2 = 0
+#             p = pills
+#             fail = False
+#             valid_tasks = deque()
+#             for j in range(len(workers) - m, len(workers)):  # 一半工人数量~
+#                 w = workers[j]
+#                 while i2 < m and tasks[i2] <= w + strength:  # 遍历前一半任务，如果任务小于工人能力+药丸
+#                     valid_tasks.append(tasks[i2])
+#                     i2 += 1
+#                 if not valid_tasks:
+#                     fail = True
+#                     break
+#                 if valid_tasks[0] <= w:
+#                     # No need for pill
+#                     valid_tasks.popleft()
+#                 else:
+#                     if not p:
+#                         fail = True
+#                         break
+#                     p -= 1
+#                     valid_tasks.pop()
+#             if fail:
+#                 e = m
+#             else:
+#                 s = m
+#         return s
+# import re
+# with open('cc.txt','r') as f:
+#     body = f.read()
+# res = re.search('"Data": "(.*?)"',body)
+#
+# l = list(range(5))
+# l2 = list(range(5))
+#
+#
+#
+# # if __name__ == '__main__':
+#     # s = Solution()
+#     # res = s.maxTaskAssign(tasks = [3,2,1], workers = [0,3,3], pills = 1, strength = 1)
+#     # print(res)
+# class Solution:
+#     def repeatedCharacter(self, s: str) -> str:
+#         seen = 0
+#         for ch in s:
+#             x = ord(ch) - ord("a")
+#             if seen & (1 << x):
+#                 return ch
+#             seen |= (1 << x)
+# result = Solution().repeatedCharacter(s="abccbaacz")
+# print(result)
+
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+class Solution:
+    def copyRandomList(self, head: 'Node') -> 'Node':
+        def dfs(head):
+            if not head: return None
+            if head in visited:
+                return visited[head]
+            # 创建新结点
+            copy = Node(head.val, None, None)
+            visited[head] = copy
+            copy.next = dfs(head.next)
+            copy.random = dfs(head.random)
+            return copy
+        visited = {}
+        return dfs(head)
+s = Solution()
+s.copyRandomList(head=[Node(7,None),Node(13,0)])
